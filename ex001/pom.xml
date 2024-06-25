@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.spring</groupId>
+	<artifactId>ex001</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>ex001</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<spring.version>5.1.0.RELEASE</spring.version>
+		<cglib.version>2.2.2</cglib.version>
+	</properties>
+
+	<dependencies>
+		<!-- Spring core & mvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- CGLib for @Configuration -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib-nodep</artifactId>
+			<version>${cglib.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+
+		<!-- Servlet Spec -->
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.1.0</version>
+		    <scope>provided</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		
+			<!-- get,set 메서드 자동 생성
+			https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.32</version>
+		    <scope>provided</scope>
+		</dependency>
+	
+		
+			<!-- 단위테스트 도구 
+			https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.13.2</version>
+		    <scope>test</scope>
+		</dependency>
+	
+			<!-- 
+			DB접속
+			Ojdbc, Mybatis, Mybatis-spring, HikariCP
+			https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis</artifactId>
+		    <version>3.5.16</version>
+		</dependency>
+	
+	
+			<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>2.1.2</version>
+		</dependency>
+	
+		<!-- https://mvnrepository.com/artifact/com.oracle.ojdbc/ojdbc8 -->
+		<dependency>
+		    <groupId>com.oracle.ojdbc</groupId>
+		    <artifactId>ojdbc8</artifactId>
+		    <version>19.3.0.0</version>
+		</dependency>
+	
+		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+		<dependency>
+		    <groupId>com.zaxxer</groupId>
+		    <artifactId>HikariCP</artifactId>
+		    <version>5.1.0</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
+		</dependency>
+		
+		<!-- 객체반환용 https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind 
+		객체(map, dto를 )json 형식의 문자열로 반환
+		-->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.17.0</version>
+		</dependency>
+
+		<!-- 비밀번호 암호화 : BCryptPasswordEncoder-->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-core</artifactId>
+		    <version>${spring.version}</version> <!-- 버전은 사용 중인 Spring 버전에 맞춰 변경 -->
+		</dependency> 
+		
+		<!-- 파일 첨부용 https://mvnrepository.com/artifact/servlets.com/cos -->
+		<dependency>
+		    <groupId>servlets.com</groupId>
+		    <artifactId>cos</artifactId>
+		    <version>05Nov2002</version>
+		</dependency>
+
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>springsource-milestones</id>
+			<name>SpringSource Milestones Proxy</name>
+			<url>https://oss.sonatype.org/content/repositories/springsource-milestones</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<finalName>ex001</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

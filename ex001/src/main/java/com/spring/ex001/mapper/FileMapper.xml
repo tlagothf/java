@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- namespace : mapper interface 의 패키지명 + 인터페이스명 -->
+  <mapper namespace="com.spring.ex001.mapper.FileMapper">
+  <!--  mapper interface 의 추상메서드 명-->
+
+	<insert id="insertFile">
+		insert into attach_file(type, seq, idx, ofilename, sfilename, reg_date)
+				values (#{type}, #{seq}, #{idx}, #{ofilename}, #{sfilename}, sysdate)
+	</insert>
+  </mapper>

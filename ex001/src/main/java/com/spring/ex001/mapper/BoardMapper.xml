@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- namespace : mapper interface 의 패키지명 + 인터페이스명 -->
+  <mapper namespace="com.spring.ex001.mapper.BoardMapper">
+  <!--  mapper interface 의 추상메서드 명-->
+  <!-- 페이징 처리가 들어간 코드
+  	중간 from 절의 코드만 바뀌고 나머지는 그대로 유지해도 된다
+ 	 -->
+  <select id="getList">
+  	  		select
+    *
+from
+    (
+        select
+            rownum rn, t.*
+        from
+            (
+				select	board_no,board_type,title,contents,user_id,updated_time,counts,
+				case when to_char(created_time, 'yyyymmdd') = to_char(sysdate, 'yyyymmdd') then to_char(created_time, 'hh24:mi:ss') 
+				else to_char(created_time, 'yyyy-mm-dd')
+				end as created_time
+                from	board
+                where del_yn != 'Y'
+                <if test="searchWord != '' and searchField != '' ">
+                where ${searchField} like '%' || #{searchWord} || '%'
+                </if>
+                order by board_no  desc
+            ) t
+    )
+    		where
+		    rn between ${pageNo * amount - (amount -1)} and ${pageNo * amount}
+  </select>
+  
+  <select id="getTotalCnt">
+  		select count(*) 
+  		from board
+  		 <if test="searchWord != '' and searchField != '' ">
+             where ${searchField} like '%' || #{searchWord} || '%'
+         </if>
+  </select>
+  </mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- namespace : mapper interface 의 패키지명 + 인터페이스명 -->
+  <mapper namespace="com.spring.ex001.mapper.MemberMapper">
+  <!--  mapper interface 의 추상메서드 명-->
+  	<select id="getmemberList">
+  	select *
+	from 	(select rownum rn, t.* 
+			from  ( select *
+			        from member
+			        
+			        <if test="searchWord != '' and searchField != '' ">
+			        where ${searchField} like '%' || #{searchWord} || '%'
+			        </if>
+			        order by reg_date desc) 
+			        t)
+		where rn between ${pageNo*amount - (amount-1)}  and ${pageNo*amount}
+  	
+  	
+  	</select>
+  	
+  	<insert id="insertMember">
+  		insert into member(id, pw) values (#{id}, #{pw})
+  	</insert>
+  	
+  	<update id="updatePw">
+  		update member set pw=#{pw} where id=#{id}
+  	</update>
+  	</mapper>

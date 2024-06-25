@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- namespace : mapper interface 의 패키지명 + 인터페이스명 -->
+  <mapper namespace="com.spring.ex001.mapper.BookMapper">
+  <!--  mapper interface 의 추상메서드 명-->
+  	<select id="getBookList">
+  		select
+    *
+from
+    (
+        select
+            rownum rn, t.*
+        from
+            (
+                select	no,title, author, decode(rent_yn, 'Y', '대여중', '대여가능') rent_yn_str
+                from	book
+                order by	no desc
+            ) t
+    )
+		where
+		    rn between ${pageNo * amount - (amount -1)} and ${pageNo * amount}
+  	</select>
+  	
+  	<insert id="insertBook">
+  	<!-- 키값을 미리 조회 후 객체에 저장 
+  			keyProperty : dto 에 정의된 컬럼이 입력
+  			resultType : dto 의 타입이 일치
+  			order : 쿼리가 언제 실행 될 지 지정 (BEFORE : 본쿼리 실행 전 먼저 실행, after : 나중에 실행)-->
+	  	<selectKey keyProperty="no" resultType="int" order="BEFORE">
+	  		select seq_book_no.nextval from dual
+	  	</selectKey>
+	  	
+		 insert into book (no,title, author, publisher, price)
+				values  (#{no}, #{title}, #{author}, #{publisher}, #{price})
+  	</insert>
+  </mapper>
